@@ -1,0 +1,196 @@
+/* ===================================================
+   Scalefox Simple Clean Sidebar
+   Matches website design language & standard palette
+   =================================================== */
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 240px;
+  height: 100vh;
+  background-color: #ffffff;
+  border-right: 1px solid #e0e0e0;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  transition: transform 0.2s ease-in-out;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* --- Clean Header --- */
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 18px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.sidebar-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar-brand-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background-color: #2874f0;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+.sidebar-brand-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #212121;
+  letter-spacing: 0.5px;
+}
+
+.sidebar-close-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #878787;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.sidebar-close-btn:hover {
+  background-color: #f1f3f6;
+  color: #212121;
+}
+
+/* --- Navigation & Simple Section Grouping --- */
+.sidebar-nav {
+  flex: 1;
+  padding: 12px 0;
+  overflow-y: auto;
+}
+
+.sidebar-section {
+  margin-bottom: 12px;
+}
+
+.sidebar-section-title {
+  padding: 8px 18px 4px;
+  font-size: 11px;
+  font-weight: bold;
+  color: #878787;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sidebar-menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar-menu-item {
+  width: 100%;
+}
+
+.sidebar-link {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 18px;
+  background: transparent;
+  border: none;
+  border-left: 3px solid transparent;
+  color: #212121;
+  font-size: 14px;
+  font-weight: normal;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+  box-sizing: border-box;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.sidebar-link:hover {
+  background-color: #f1f3f6;
+  color: #2874f0;
+}
+
+.sidebar-link.active {
+  background-color: #f0f5ff;
+  color: #2874f0;
+  font-weight: bold;
+  border-left-color: #2874f0;
+}
+
+.sidebar-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: inherit;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+}
+
+.sidebar-label {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-item-badge {
+  background-color: #2874f0;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 1px 7px;
+  border-radius: 10px;
+  line-height: 1.3;
+}
+
+.sidebar-link.active .sidebar-item-badge {
+  background-color: #2874f0;
+}
+
+/* --- Mobile Overlay Backdrop --- */
+.sidebar-backdrop {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .sidebar {
+    transform: translateX(-100%);
+    box-shadow: none;
+  }
+
+  .sidebar.sidebar-open {
+    transform: translateX(0);
+    box-shadow: 4px 0 16px rgba(0, 0, 0, 0.15);
+  }
+
+  .sidebar-close-btn {
+    display: block;
+  }
+
+  .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 999;
+  }
+}

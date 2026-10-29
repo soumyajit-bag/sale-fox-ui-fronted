@@ -1,0 +1,16 @@
+node_modules/
+npm-debug.log*
+.env
+amazon_profiles/
+scraped_data/
+!brand_scrapers/apple/scraped_data/
+!brand_scrapers/apple/scraped_data/apple_products.json
+!brand_scrapers/vivo/scraped_data/
+!brand_scrapers/vivo/scraped_data/vivo_products.json
+cookies.txt
+scratch_*.js
+test_*.js
+debug_*.js
+.system_generated/
+cloudflared.exe
+*.exe
