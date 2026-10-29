@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: amazon-pro-scraper
+    runtime: node
+    region: singapore
+    plan: free
+    buildCommand: "npm install --omit=dev"
+    startCommand: "node webServer.js"
+    autoDeploy: true

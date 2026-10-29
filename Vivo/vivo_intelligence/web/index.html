@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vivo Intelligence Pro — Ultra-Fast Vivo Smartphone Handset & Real-Time Pricing Scraper</title>
+  <meta name="description" content="Production-grade stealth scraping engine & Figma Frosted Glassmorphism executive dashboard for Vivo India smartphone catalog, variants, and real-time deliverability.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='24' fill='%23415fff'/><path d='M25 35 L45 70 L55 70 L75 35 L62 35 L50 60 L38 35 Z' fill='%23ffffff'/></svg>">
+</head>
+<body class="bg-obsidian">
+  <!-- Dynamic Glowing Orbs Backdrop -->
+  <div class="glow-orb orb-primary"></div>
+  <div class="glow-orb orb-cyan"></div>
+  <div class="glow-orb orb-purple"></div>
+
+  <div class="app-container">
+    <!-- EXECUTIVE HEADER -->
+    <header class="executive-header glass-panel">
+      <div class="brand-group">
+        <div class="logo-box">
+          <div class="vivo-v-logo">
+            <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 10 L18 32 L22 32 L34 10 L27 10 L20 25 L13 10 Z" fill="url(#vivoGrad)"/>
+              <defs>
+                <linearGradient id="vivoGrad" x1="6" y1="10" x2="34" y2="32" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#415fff"/>
+                  <stop offset="1" stop-color="#00f2fe"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <div class="brand-title">
+              <span class="vivo-brand">vivo</span>
+              <span class="pro-tag">Intelligence Pro</span>
+            </div>
+            <div class="brand-sub">Official E-Store Live Catalog & Deliverability Engine</div>
+          </div>
+        </div>
+
+        <div class="header-badges">
+          <div class="status-pill live-pulse" id="systemStatusPill">
+            <span class="pulse-dot"></span>
+            <span id="systemStatusText">24/7 Live Monitoring</span>
+          </div>
+
+          <div class="pincode-badge" id="pincodeBadge" title="Click to change delivery pincode">
+            <svg class="icon-pin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+              <circle cx="12" cy="9" r="2.5"/>
+            </svg>
+            <span>PIN: <strong id="currentPincode">110058</strong> (Delhi NCR)</span>
+            <button class="btn-change-pin" id="btnChangePin" aria-label="Change Pincode">Change</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button id="btnTriggerScrape" class="btn-action btn-primary" title="Trigger instant background store scan">
+          <svg class="spin-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+          </svg>
+          <span id="scrapeBtnText">Trigger Scrape</span>
+        </button>
+
+        <button id="btnExportCSV" class="btn-action btn-glass" title="Export flattened CSV">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>
+          </svg>
+          <span>Export CSV</span>
+        </button>
+
+        <button id="btnExportJSON" class="btn-action btn-glass" title="Export unified JSON">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="16 18 22 12 16 6"/>
+            <polyline points="8 6 2 12 8 18"/>
+          </svg>
+          <span>Export JSON</span>
+        </button>
+
+        <button id="btnToggleTerminal" class="btn-action btn-icon" title="Toggle Live Activity Console">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="4 17 10 11 4 5"/>
+            <line x1="12" y1="19" x2="20" y2="19"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- LIVE SCRAPER PROGRESS BANNER (Dynamic) -->
+    <div id="progressBanner" class="progress-banner glass-panel hidden">
+      <div class="progress-info">
+        <span class="progress-spinner"></span>
+        <span class="progress-label" id="progressStatus">Scraping Vivo E-Store catalog in background...</span>
+        <span class="progress-pct" id="progressPct">0%</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressBar" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <!-- KPI EXECUTIVE METRICS -->
+    <section class="kpi-grid">
+      <div class="kpi-card glass-panel" data-glow="blue">
+        <div class="kpi-header">
+          <span class="kpi-title">Handset Variants</span>
+          <div class="kpi-icon-wrap icon-blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+              <line x1="12" y1="18" x2="12.01" y2="18"/>
+            </svg>
+          </div>
+        </div>
+        <div class="kpi-value" id="kpiTotalVariants">0</div>
+        <div class="kpi-sub">
+          <span class="text-accent" id="kpiSeriesBreakdown">X: 0 | V: 0 | T: 0 | Y: 0</span>
+        </div>
+      </div>
+
+      <div class="kpi-card glass-panel" data-glow="green">
+        <div class="kpi-header">
+          <span class="kpi-title">Deliverability Rate</span>
+          <div class="kpi-icon-wrap icon-green">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+              <polyline points="22 4 12 14.01 9 11.01"/>
+            </svg>
+          </div>
+        </div>
+        <div class="kpi-value text-green" id="kpiInStockRate">0%</div>
+        <div class="kpi-sub">
+          <span id="kpiInStockCount">0 In Stock</span> · <span id="kpiOutOfStockCount">0 OOS</span>
+        </div>
+      </div>
+
+      <div class="kpi-card glass-panel" data-glow="cyan">
+        <div class="kpi-header">
+          <span class="kpi-title">Entry Price</span>
+          <div class="kpi-icon-wrap icon-cyan">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="12" y1="1" x2="12" y2="23"/>
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </div>
+        </div>
+        <div class="kpi-value text-cyan" id="kpiMinPrice">₹0</div>
+        <div class="kpi-sub" id="kpiMinModel">Vivo Youth Series</div>
+      </div>
+
+      <div class="kpi-card glass-panel" data-glow="purple">
+        <div class="kpi-header">
+          <span class="kpi-title">Flagship Apex</span>
+          <div class="kpi-icon-wrap icon-purple">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+          </div>
+        </div>
+        <div class="kpi-value text-purple" id="kpiMaxPrice">₹0</div>
+        <div class="kpi-sub" id="kpiMaxModel">Vivo X Fold Series</div>
+      </div>
+
+      <div class="kpi-card glass-panel" data-glow="amber">
+        <div class="kpi-header">
+          <span class="kpi-title">Catalog Avg Price</span>
+          <div class="kpi-icon-wrap icon-amber">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+        </div>
+        <div class="kpi-value" id="kpiAvgPrice">₹0</div>
+        <div class="kpi-sub">
+          <span class="text-accent" id="kpiAvgDiscount">Avg 22% Off MRP</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE FILTER & SEARCH BAR -->
+    <section class="controls-panel glass-panel">
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input type="text" id="searchInput" placeholder="Search by model, series, color (e.g. Ganges Blue), RAM, or SKU..." autocomplete="off">
+        <button id="btnClearSearch" class="btn-clear hidden">&times;</button>
+      </div>
+
+      <!-- SERIES FILTER CHIPS -->
+      <div class="series-chips">
+        <button class="chip active" data-series="All">All Series (<span id="countAll">0</span>)</button>
+        <button class="chip chip-x" data-series="X Series">X Series (<span id="countX">0</span>)</button>
+        <button class="chip chip-v" data-series="V Series">V Series (<span id="countV">0</span>)</button>
+        <button class="chip chip-t" data-series="T Series">T Series (<span id="countT">0</span>)</button>
+        <button class="chip chip-y" data-series="Y Series">Y Series (<span id="countY">0</span>)</button>
+      </div>
+
+      <div class="filter-controls">
+        <div class="control-group">
+          <label for="priceRange">Max Price: <strong id="priceRangeLabel">₹2,60,000</strong></label>
+          <input type="range" id="priceRange" min="5000" max="260000" step="5000" value="260000">
+        </div>
+
+        <div class="control-group">
+          <label for="sortSelect">Sort By:</label>
+          <select id="sortSelect" class="custom-select">
+            <option value="featured">Featured / Flagship First</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="discount">Highest Discount %</option>
+            <option value="rating">Top Customer Rating</option>
+          </select>
+        </div>
+
+        <div class="stock-toggle-group">
+          <label class="toggle-container">
+            <input type="checkbox" id="stockToggle">
+            <span class="toggle-slider"></span>
+            <span class="toggle-label">In Stock Only</span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- LIVE ACTIVITY CONSOLE (Translucent Drawer) -->
+    <div id="terminalDrawer" class="terminal-drawer glass-panel hidden">
+      <div class="terminal-header">
+        <div class="terminal-title">
+          <span class="terminal-dot green"></span>
+          <span class="terminal-dot yellow"></span>
+          <span class="terminal-dot red"></span>
+          <span class="terminal-label">Vivo Intelligence Pro Scraper Engine Console</span>
+        </div>
+        <div class="terminal-actions">
+          <button id="btnClearLogs" class="btn-term-action">Clear</button>
+          <button id="btnCloseTerminal" class="btn-term-action">&times;</button>
+        </div>
+      </div>
+      <div class="terminal-body" id="terminalLogs">
+        <div class="log-line info">[System] Vivo Intelligence Pro Engine v2.4 initialized. Ready for scraping.</div>
+        <div class="log-line success">[Filter] Strict Exact-Model Isolation ACTIVE. Anti-Accessory Blacklist enforced.</div>
+      </div>
+    </div>
+
+    <!-- CATALOG GRID -->
+    <main class="catalog-section">
+      <div class="catalog-header">
+        <div class="catalog-count-wrap">
+          Showing <strong id="showingCount">0</strong> of <span id="totalCatalogCount">0</span> authentic Vivo smartphone variants
+        </div>
+        <div class="catalog-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="shield-icon">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+          </svg>
+          100% Smartphone Handsets (No Accessories)
+        </div>
+      </div>
+
+      <div class="product-grid" id="productGrid">
+        <!-- Rendered dynamically via app.js -->
+      </div>
+
+      <!-- Empty State -->
+      <div id="emptyState" class="empty-state glass-panel hidden">
+        <div class="empty-icon">📱</div>
+        <h3>No Vivo Smartphones Found</h3>
+        <p>No products match your current search and filter criteria. Try adjusting the price range or search query.</p>
+        <button class="btn-action btn-primary" id="btnResetFilters">Reset Filters</button>
+      </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="app-footer glass-panel">
+      <div class="footer-left">
+        <span>Vivo Intelligence Pro &copy; 2026. Built with Figma Frosted Glassmorphism & HTTP/2 Persistent Tunnel.</span>
+      </div>
+      <div class="footer-right">
+        <span>Target: <strong>shop.vivo.com/in</strong> &middot; <strong>vivo.com/in</strong></span>
+        <span class="tag-status">24/7 Uptime Verified</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Pincode Modal -->
+  <div id="pincodeModal" class="modal-backdrop hidden">
+    <div class="modal-card glass-panel">
+      <div class="modal-header">
+        <h3>Deliverability Pincode</h3>
+        <button id="btnCloseModal" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Enter your 6-digit Indian postal code to verify live delivery timeline and fulfillment stock on shop.vivo.com:</p>
+        <div class="pincode-input-box">
+          <input type="text" id="modalPincodeInput" maxlength="6" placeholder="e.g. 110058, 400001, 560001" value="110058">
+          <button id="btnSavePincode" class="btn-action btn-primary">Verify Stock</button>
+        </div>
+        <div class="quick-pins">
+          <span>Quick Select:</span>
+          <button class="pin-pill" data-pin="110058">110058 (Delhi)</button>
+          <button class="pin-pill" data-pin="400001">400001 (Mumbai)</button>
+          <button class="pin-pill" data-pin="560001">560001 (Bengaluru)</button>
+          <button class="pin-pill" data-pin="700001">700001 (Kolkata)</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

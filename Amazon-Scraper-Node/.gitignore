@@ -1,0 +1,12 @@
+node_modules/
+npm-debug.log*
+.env
+amazon_profiles/
+scraped_data/
+cookies.txt
+scratch_*.js
+test_*.js
+debug_*.js
+.system_generated/
+cloudflared.exe
+*.exe
